@@ -1,0 +1,28 @@
+[
+    {
+        "workspaceName": "Meetzinho com a conja",
+        "programs": [
+            {
+                "name": "Pagina inicial do Meet",
+                "path": "",
+                "type": "Navegador",
+                "optArgs": [],
+                "URL": "https://meet.google.com"
+            },
+            {
+                "name": "Whatsapp Web",
+                "path": "",
+                "type": "Navegador",
+                "optArgs": [],
+                "URL": "https://web.whatsapp.com"
+            },
+            {
+                "name": "Youtube",
+                "path": "",
+                "type": "Navegador",
+                "optArgs": [],
+                "URL": "https://www.youtube.com"
+            }
+        ]
+    }
+]
