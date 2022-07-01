@@ -24,12 +24,18 @@ type Program struct {
 }
 
 func (program Program) execute() {
-	if program.Type == navigatorType {
+	switch program.Type {
+	case navigatorType:
 		program.openBrowserWindow()
-		return
+	case scriptType:
+		program.runScript()
+	case applicationType:
+		program.runApplication()
+	default:
+		log.Fatal(`Erro: O tipo`, program.Type, `não existe, verifique a gramática e tente novamente.
+		Os tipos permitidos são: 
+		`, strings.Join(allProgramTypes, "\n"))
 	}
-	program.runApplication()
-
 }
 
 func (browserWindowProgram Program) openBrowserWindow() {
@@ -40,22 +46,35 @@ func (browserWindowProgram Program) openBrowserWindow() {
 	}
 }
 
-func (applicationProgram Program) runApplication() {
-	absFilePath, err := filepath.Abs(applicationProgram.Path)
-	if err != nil {
-		log.Fatal(`Erro: Não foi possivel determinar o caminho da aplicação/Script (`, applicationProgram, `)`)
-	}
-
-	if applicationProgram.Type == scriptType {
-		scriptCmd := exec.Command(absFilePath, strings.Join(applicationProgram.OptionalArgs, " ")).Start()
+func (scriptProgram Program) runScript() {
+	absFilePath := getAbsolutePath(scriptProgram.Path)
+	if scriptProgram.Type == scriptType {
+		scriptCmd := exec.Command(absFilePath, strings.Join(scriptProgram.OptionalArgs, " ")).Start()
 		if scriptCmd.Error() != emptyString {
 			fmt.Println(scriptCmd.Error())
 		}
 		return
 	}
+}
 
-	appCmd := exec.Command(absFilePath).Start()
-	if appCmd.Error() != emptyString {
-		fmt.Println(appCmd.Error())
+func (applicationProgram Program) runApplication() {
+	absoluteFilePath := getAbsolutePath(applicationProgram.Path)
+	var appCmdError error = nil
+	if strings.Contains(applicationProgram.Path, directorySlash) {
+		appCmdError = exec.Command(absoluteFilePath).Start()
+	} else {
+		appCmdError = exec.Command(applicationProgram.Path).Start()
 	}
+
+	if appCmdError.Error() != emptyString {
+		fmt.Println(appCmdError.Error())
+	}
+}
+
+func getAbsolutePath(path string) string {
+	absFilePath, err := filepath.Abs(path)
+	if err != nil {
+		log.Fatal(`Erro: Não foi possivel determinar o caminho da aplicação/Script (`, path, `)`)
+	}
+	return absFilePath
 }
