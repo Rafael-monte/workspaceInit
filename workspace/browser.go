@@ -18,7 +18,6 @@ type linuxBrowser struct{}
 
 func (browser windowsBrowser) openUrl(url string) {
 	exec.Command(openWinBrowser[0], openWinBrowser[1], url).Start()
-	// exec.Command(strings.Join(openWinBrowser[:], " "), url).Start()
 }
 
 func (browser macBrowser) openUrl(url string) {

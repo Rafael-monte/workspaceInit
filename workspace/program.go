@@ -1,7 +1,10 @@
 package workspace
 
 import (
+	"fmt"
+	"log"
 	"os/exec"
+	"path/filepath"
 	"runtime"
 	"strings"
 )
@@ -25,6 +28,7 @@ func (program Program) execute() {
 		program.openBrowserWindow()
 		return
 	}
+	program.runApplication()
 
 }
 
@@ -37,10 +41,21 @@ func (browserWindowProgram Program) openBrowserWindow() {
 }
 
 func (applicationProgram Program) runApplication() {
+	absFilePath, err := filepath.Abs(applicationProgram.Path)
+	if err != nil {
+		log.Fatal(`Erro: Não foi possivel determinar o caminho da aplicação/Script (`, applicationProgram, `)`)
+	}
+
 	if applicationProgram.Type == scriptType {
-		exec.Command(applicationProgram.Path, strings.Join(applicationProgram.OptionalArgs, " "))
+		scriptCmd := exec.Command(absFilePath, strings.Join(applicationProgram.OptionalArgs, " ")).Start()
+		if scriptCmd.Error() != emptyString {
+			fmt.Println(scriptCmd.Error())
+		}
 		return
 	}
 
-	exec.Command(applicationProgram.Name)
+	appCmd := exec.Command(absFilePath).Start()
+	if appCmd.Error() != emptyString {
+		fmt.Println(appCmd.Error())
+	}
 }

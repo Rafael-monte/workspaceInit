@@ -23,7 +23,7 @@ func (workspace Workspace) RunPrograms() {
 }
 
 //Inicia o programa, buscando os workspaces configurados e deixando o usuario escolher qual executar
-func Run() Workspace {
+func Create() Workspace {
 	workspaces := getJSONFileInConfigurations()
 	return selectWorkspaceFromOptions(workspaces)
 }
