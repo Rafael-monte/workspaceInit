@@ -5,7 +5,7 @@ const navigatorType string = "Navegador"
 const scriptType string = "Script"
 
 //Open browser window commands
-var openWinBrowser = [2]string{"rundll32", "url.dll,FileProtocolHandler"}
+var openWinBrowser = []string{"rundll32", "url.dll,FileProtocolHandler"}
 
 const openLinuxBrowser string = "xdg-open"
 const openMacBrowser string = "open"
