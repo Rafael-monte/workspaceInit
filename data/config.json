@@ -1,27 +1,27 @@
 [
     {
-        "workspaceName": "Meetzinho com a conja",
+        "workspaceName": "Gameplay insana de WR",
         "programs": [
             {
-                "name": "Pagina inicial do Meet",
+                "name": "Spotify",
                 "path": "",
                 "type": "Navegador",
                 "optArgs": [],
-                "URL": "https://meet.google.com"
+                "URL": "https://open.spotify.com"
             },
             {
-                "name": "Whatsapp Web",
+                "name": "Gerador de champ aleatorio de Wild Rift/LOL",
                 "path": "",
                 "type": "Navegador",
                 "optArgs": [],
-                "URL": "https://web.whatsapp.com"
+                "URL": "https://pickrandom.com/random-leagueoflegends/champion/"
             },
             {
-                "name": "Youtube",
+                "name": "Steam",
                 "path": "",
                 "type": "Navegador",
                 "optArgs": [],
-                "URL": "https://www.youtube.com"
+                "URL": "https://store.steampowered.com"
             }
         ]
     }

@@ -2,7 +2,6 @@ package workspace
 
 // Program Types
 const navigatorType string = "Navegador"
-const appType string = "Aplicacao"
 const scriptType string = "Script"
 
 //Open browser window commands
@@ -17,3 +16,4 @@ const mac string = "darwin"
 const linux string = "linux"
 
 const configFileLocation string = "data\\config.json"
+const emptyString string = ""
