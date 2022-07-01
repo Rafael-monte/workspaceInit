@@ -29,10 +29,6 @@ func Create() Workspace {
 }
 
 func getJSONFileInConfigurations() (workspaces []Workspace) {
-	// absPath, err := filepath.Abs("../data/createdWorkspaces.json")
-	// if err != nil {
-	// 	log.Fatal(`Não foi possivel converter o caminho do arquivo de configurações para absoluto`)
-	// }
 	jsonFile, err := os.ReadFile(configFileLocation)
 	if err != nil {
 		log.Fatal(`Erro: Não foi possivel acessar o arquivo de configuracoes dos workspaces.
@@ -43,6 +39,7 @@ func getJSONFileInConfigurations() (workspaces []Workspace) {
 	}
 
 	err = json.Unmarshal(jsonFile, &workspaces)
+
 	if err != nil {
 		log.Fatal(`Erro: Não foi possivel converter o arquivo de de configurações dos workspaces
 			Possivelmente o arquivo foi formatado incorretamente
