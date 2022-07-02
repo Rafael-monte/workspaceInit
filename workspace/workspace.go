@@ -22,6 +22,8 @@ func (workspace Workspace) RunPrograms() {
 	}
 }
 
+var selectedWorkspace Workspace
+
 //Inicia o programa, buscando os workspaces configurados e deixando o usuario escolher qual executar
 func Create() Workspace {
 	workspaces := getJSONFileInConfigurations()
@@ -68,9 +70,15 @@ func selectWorkspaceFromOptions(workspaces []Workspace) (workspaceSelecionado Wo
 			log.Fatal(`Erro: A entrada esperada deve estar no intervalo entre 1 e`, len(workspaces)+1)
 		}
 		workspaceSelecionado = workspaces[opcao-1]
+		selectedWorkspace = workspaceSelecionado
 		return
 	}
 	workspaceSelecionado = workspaces[0]
+	selectedWorkspace = workspaceSelecionado
 	fmt.Println("Selecionando o unico workspace configurado:", workspaceSelecionado.Name)
 	return
+}
+
+func GetSelectedWorkspace() Workspace {
+	return selectedWorkspace
 }

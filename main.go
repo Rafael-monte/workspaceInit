@@ -2,7 +2,9 @@ package main
 
 import "workspaceInit/workspace"
 
+var WorkspaceSelecionado workspace.Workspace
+
 func main() {
-	workspaceSelecionado := workspace.Create()
-	workspaceSelecionado.RunPrograms()
+	WorkspaceSelecionado = workspace.Create()
+	WorkspaceSelecionado.RunPrograms()
 }
