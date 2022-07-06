@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"path/filepath"
 )
 
 //Conjunto de programas que serão rodados
@@ -31,25 +32,21 @@ func Create() Workspace {
 }
 
 func getJSONFileInConfigurations() (workspaces []Workspace) {
-	jsonFile, err := os.ReadFile(configFileLocation)
-	if err != nil {
-		log.Fatal(`Erro: Não foi possivel acessar o arquivo de configuracoes dos workspaces.
-			Por favor, certifique-se que:
-			- O arquivo de configurações existe (Localizado em: "data/createdWorkspaces.json")
-			- O arquivo está formatado corretamente
-		`)
-	}
 
-	err = json.Unmarshal(jsonFile, &workspaces)
+	filePath, filePathLocationError := filepath.Abs(configFileLocation)
 
-	if err != nil {
-		log.Fatal(`Erro: Não foi possivel converter o arquivo de de configurações dos workspaces
-			Possivelmente o arquivo foi formatado incorretamente
-		`)
-	}
+	checkIfHasError(filePathLocationError, cannotFindConfigFilePath)
+
+	jsonFile, readFileError := os.ReadFile(filePath)
+
+	checkIfHasError(readFileError, cannotAccessConfigFile)
+
+	conversionError := json.Unmarshal(jsonFile, &workspaces)
+
+	checkIfHasError(conversionError, cannotConvertConfigFile)
 
 	if len(workspaces) == 0 {
-		log.Fatal(`Erro: Não existe nenhum workspace configurado para execução. Crie um e tente novamente`)
+		log.Fatal(noWorkspacesSetted)
 	}
 
 	return

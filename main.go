@@ -1,10 +1,20 @@
 package main
 
-import "workspaceInit/workspace"
+import (
+	"workspaceInit/flags"
+	"workspaceInit/workspace"
+)
 
 var WorkspaceSelecionado workspace.Workspace
 
 func main() {
-	WorkspaceSelecionado = workspace.Create()
-	WorkspaceSelecionado.RunPrograms()
+	if alternativeFlow := flags.CheckFlowChangerFlags(); len(alternativeFlow) == 0 {
+		// Main flow
+		WorkspaceSelecionado = workspace.Create()
+		WorkspaceSelecionado.RunPrograms()
+	} else {
+		for _, alternativeProcess := range alternativeFlow {
+			alternativeProcess()
+		}
+	}
 }
