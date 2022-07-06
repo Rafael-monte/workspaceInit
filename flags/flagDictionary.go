@@ -24,6 +24,7 @@ var flowChangerFlags = map[string]func(){
 
 // Checa se o usuario inseriu alguma flag que altera o fluxo principal, essas flags abrem novos que mudam completamente o comportamento da aplicacao
 func CheckFlowChangerFlags() (functionStack []func()) {
+
 	utils.StartLoadingResource("associação das flags ao contexto")
 	usedFlags := []string{}
 	os.Args = os.Args[1:]
